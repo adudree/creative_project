@@ -1,20 +1,39 @@
 <html>
   <head>
     <style>
-        html {
-            background-color: rgb(235, 235, 235);
-        }
-        .p5Canvas {
-            z-index: -1;
-        }
+      html {
+      background-color: rgb(235, 235, 235);
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      color: #555;
+      }
+      .p5Canvas {
+      z-index: -1;
+      }
+
+      h1, h2 {
+        color:red;
+      }
+      button {
+        background-color: #4b4bbb;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color: #fff;
+        height: 30px;
+        border:1px solid  #3a3a57 ;
+        border-radius: 20px;
+        padding: 0 20px;
+        margin: 0 10px;
+      }
+      button:hover{
+        cursor: pointer;
+        background:aqua;
+        color:#000;
+      }
+
     </style>
   </head>
 
-  <body>
-      
-    <button id='player_start' type="button">Play</button>
-    <button id='player_stop' type="button">Stop</button>
-  </body>
+  <body></body>
+
   <script src="https://cdn.jsdelivr.net/npm/@magenta/music@^1.0.0"></script>
   <script src = "./lib/dat.gui.min.js"></script>
   <script src = "./lib/p5.min.js"></script>

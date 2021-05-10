@@ -1,0 +1,30 @@
+html {
+background-color: rgb(235, 235, 235);
+font-family: Verdana, Geneva, Tahoma, sans-serif;
+color: #555;
+}
+
+.p5Canvas {
+z-index: -1;
+}
+
+h1, h2 {
+  color:red;
+}
+
+button {
+  background-color: #4b4bbb;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #fff;
+  height: 30px;
+  border:1px solid  #3a3a57 ;
+  border-radius: 20px;
+  padding: 0 20px;
+  margin: 0 10px;
+}
+
+button:hover{
+  cursor: pointer;
+  background:aqua;
+  color:#000;
+}

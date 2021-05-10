@@ -1,10 +1,4 @@
 // -------------------
-//       Drawing
-// -------------------
-
-function draw() {}
-
-// -------------------
 //    Initialization
 // -------------------
 
@@ -46,7 +40,10 @@ function setup() {
     createElement('h2', "Let's compose!");
     createElement('p', "Compose your own melody (8 notes) by playing with your keyboard : A = C (do), Z = D (ré), E = E (mi), R = F (fa), T = G (sol), Y = A (la), U = B (si), I = C (do)");
 
-    /* insert visualizer here */
+    // visualizer
+    let canvas1 = createElement('canvas');
+    canvas1.id('melody');
+    displayPlayer('melody');
 
     // buttons 
     let playMelody = createButton("play");
@@ -68,12 +65,66 @@ function windowResized() {
 //    Functions
 // -------------------
 
+let valueNote;
+//configuration du clavier (à revoir mdr) 
+function keyTyped(){
+    if (key === 'a') {
+        valueNote = 64;
+    }
+    else if (key === 'z') {
+        valueNote = 66;
+    }
+    else if (key === 'e') {
+        valueNote = 68;
+    }
+    else if (key === 'r') {
+        valueNote = 69;
+    }
+    else if (key === 't') {
+        valueNote = 71;
+    }
+    else if (key === 'y') {
+        valueNote = 73;
+    }
+    else if (key === 'u') {
+        valueNote = 75;
+    }
+    else if (key === 'i') {
+        valueNote = 76;
+    }
+}
+
+// j'ai pas réussi à passer les mélodies en paramètre, vive le hardcoding
 function startMelody() {
     player.start(TWINKLE_TWINKLE);
 }
 
 function endMelody() {
     player.stop(TWINKLE_TWINKLE);
+}
+
+function startAll() {
+    player.start(TWINKLE_TWINKLE);
+}
+
+function endAll() {
+    player.stop(TWINKLE_TWINKLE);
+}
+
+function displayPlayer(id:string){
+    let config = {
+        noteHeight: 6,
+        pixelsPerTimeStep: 30,  // like a note width
+        noteSpacing: 1,
+        noteRGB: '8, 41, 64',
+        activeNoteRGB: '240, 84, 119',
+      };
+
+    let viz = new mm.PianoRollCanvasVisualizer(TWINKLE_TWINKLE, document.getElementById(id), config);   
+    new mm.Player(false, {
+        run: (note) => viz.redraw(note),
+        stop: () => {console.log('done');}
+      });
 }
 
 function calculate() {
@@ -84,19 +135,24 @@ function calculate() {
 function displayEnd() {
 
     /* insert visualize here */
+    let canvas2 = createElement('canvas');
+    canvas2.id('all');
+    displayPlayer('all');
 
     createElement('p', "Congrats! The end of you melody have been created, let's listen to it ! If you don't like it, you can calculate a different ending by clicking on the previous button.");
+    
     let playAll = createButton("play");
     playAll.mousePressed(startAll);
+
     let stopAll = createButton("stop");
     stopAll.mousePressed(endAll);
+    
+    
     isDisplayed = true;
 }
 
-function startAll() {
-    player.start(TWINKLE_TWINKLE);
-}
+// -------------------
+//       Drawing
+// -------------------
 
-function endAll() {
-    player.stop(TWINKLE_TWINKLE);
-}
+function draw() {}

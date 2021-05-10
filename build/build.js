@@ -1,4 +1,3 @@
-function draw() { }
 var player = new mm.Player();
 var isDisplayed = false;
 var TWINKLE_TWINKLE = {
@@ -27,6 +26,9 @@ function setup() {
     createElement('p', "You would like to compose your own melody and you have started it, but you don't know how to continue it? Melod'IMAC is here for you!");
     createElement('h2', "Let's compose!");
     createElement('p', "Compose your own melody (8 notes) by playing with your keyboard : A = C (do), Z = D (ré), E = E (mi), R = F (fa), T = G (sol), Y = A (la), U = B (si), I = C (do)");
+    var canvas1 = createElement('canvas');
+    canvas1.id('melody');
+    displayPlayer('melody');
     var playMelody = createButton("play");
     playMelody.mousePressed(startMelody);
     var stopMelody = createButton("stop");
@@ -38,23 +40,38 @@ function setup() {
 function windowResized() {
     p6_ResizeCanvas();
 }
+var valueNote;
+function keyTyped() {
+    if (key === 'a') {
+        valueNote = 64;
+    }
+    else if (key === 'z') {
+        valueNote = 66;
+    }
+    else if (key === 'e') {
+        valueNote = 68;
+    }
+    else if (key === 'r') {
+        valueNote = 69;
+    }
+    else if (key === 't') {
+        valueNote = 71;
+    }
+    else if (key === 'y') {
+        valueNote = 73;
+    }
+    else if (key === 'u') {
+        valueNote = 75;
+    }
+    else if (key === 'i') {
+        valueNote = 76;
+    }
+}
 function startMelody() {
     player.start(TWINKLE_TWINKLE);
 }
 function endMelody() {
     player.stop(TWINKLE_TWINKLE);
-}
-function calculate() {
-    if (!isDisplayed)
-        displayEnd();
-}
-function displayEnd() {
-    createElement('p', "Congrats! The end of you melody have been created, let's listen to it ! If you don't like it, you can calculate a different ending by clicking on the previous button.");
-    var playAll = createButton("play");
-    playAll.mousePressed(startAll);
-    var stopAll = createButton("stop");
-    stopAll.mousePressed(endAll);
-    isDisplayed = true;
 }
 function startAll() {
     player.start(TWINKLE_TWINKLE);
@@ -62,6 +79,36 @@ function startAll() {
 function endAll() {
     player.stop(TWINKLE_TWINKLE);
 }
+function displayPlayer(id) {
+    var config = {
+        noteHeight: 6,
+        pixelsPerTimeStep: 30,
+        noteSpacing: 1,
+        noteRGB: '8, 41, 64',
+        activeNoteRGB: '240, 84, 119',
+    };
+    var viz = new mm.PianoRollCanvasVisualizer(TWINKLE_TWINKLE, document.getElementById(id), config);
+    new mm.Player(false, {
+        run: function (note) { return viz.redraw(note); },
+        stop: function () { console.log('done'); }
+    });
+}
+function calculate() {
+    if (!isDisplayed)
+        displayEnd();
+}
+function displayEnd() {
+    var canvas2 = createElement('canvas');
+    canvas2.id('all');
+    displayPlayer('all');
+    createElement('p', "Congrats! The end of you melody have been created, let's listen to it ! If you don't like it, you can calculate a different ending by clicking on the previous button.");
+    var playAll = createButton("play");
+    playAll.mousePressed(startAll);
+    var stopAll = createButton("stop");
+    stopAll.mousePressed(endAll);
+    isDisplayed = true;
+}
+function draw() { }
 var __MARGIN_SIZE = 0;
 function __desiredCanvasWidth() {
     return windowWidth - __MARGIN_SIZE * 2;

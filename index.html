@@ -1,38 +1,37 @@
 <html>
   <head>
-    <style>
-      html {
-      background-color: rgb(235, 235, 235);
-      font-family: Verdana, Geneva, Tahoma, sans-serif;
-      color: #555;
-      }
-      .p5Canvas {
-      z-index: -1;
-      }
-
-      h1, h2 {
-        color:red;
-      }
-      button {
-        background-color: #4b4bbb;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        color: #fff;
-        height: 30px;
-        border:1px solid  #3a3a57 ;
-        border-radius: 20px;
-        padding: 0 20px;
-        margin: 0 10px;
-      }
-      button:hover{
-        cursor: pointer;
-        background:aqua;
-        color:#000;
-      }
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
 
-  <body></body>
+  <body>
+    <h1> Melod'IMAC</h1>
+    <p> You would like to compose your own melody and you have started it, but you don't know how to continue it? Melod'IMAC is here for you!</p>
+    
+    <h2> Let's compose!</h2>
+    <p> Compose your own melody (8 notes) by playing with your keyboard : A = C (do), Z = D (ré), E = E (mi), R = F (fa), T = G (sol), Y = A (la), U = B (si), I = C (do)</p>
+  
+    <canvas id='melody'>
+      Loading melody visualizer 
+    </canvas>
+
+    <button id="play" type="button">Play</button>
+    <button id="stop" type="button">Stop</button>
+
+    <h2> Let's calculate</h2>
+    <button id="createMelodyIA" type="button">Calculate new melody</button>
+
+    <div id=melodyIA>
+      <canvas id='canvasMelodyIA'>
+        Loading melody visualizer 
+      </canvas>
+
+      <p> Congrats! The end of you melody have been created, let's listen to it ! If you don't like it, you can calculate a different ending by clicking on the previous button.</p>
+      <button id="playIA" type="button">Play</button>
+      <button id="stopIA" type="button">Stop</button>
+
+    </div>
+
+  </body>
 
   <script src="https://cdn.jsdelivr.net/npm/@magenta/music@^1.0.0"></script>
   <script src = "./lib/dat.gui.min.js"></script>

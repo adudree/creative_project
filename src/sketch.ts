@@ -2,9 +2,6 @@
 //    Initialization
 // -------------------
 
-let player = new mm.Player();
-let isDisplayed = false; // pour l'affichage de la fin de la page après calcul par l'IA 
-
 // pour l'instant : sert d'exemple / de test 
 let TWINKLE_TWINKLE = {
     notes: [
@@ -26,35 +23,33 @@ let TWINKLE_TWINKLE = {
     totalTime: 8
 };
 
+let player = new mm.Player();
+let isDisplayed = false; // pour l'affichage de la fin de la page après calcul par l'IA 
+
+let playMelody = document.getElementById('play').onclick = function() {
+    player.start(TWINKLE_TWINKLE);}
+
+let stopMelody = document.getElementById('stop').onclick = function() {
+    player.stop(TWINKLE_TWINKLE);}
+
+let createMelodyIA = document.getElementById('createMelodyIA').onclick = function() {
+    if (!isDisplayed)
+        displayEnd();}
+
+let playMelodyIA = document.getElementById('playIA').onclick = function() {
+    player.start(TWINKLE_TWINKLE);}
+
+let stopMelodyIA =document.getElementById('stopIA').onclick = function() {
+    player.stop(TWINKLE_TWINKLE);}
+
+let afficherMelodyIA = document.getElementById('melodyIA');
+afficherMelodyIA.style.display= "none";
+
 function setup() {
     p6_CreateCanvas();
     textAlign(LEFT);
 
-    /* === INTRO === */
-
-    createElement('h1', "Melod'IMAC");
-    createElement('p', "You would like to compose your own melody and you have started it, but you don't know how to continue it? Melod'IMAC is here for you!");
-
-    /* === COMPOSE === */
-
-    createElement('h2', "Let's compose!");
-    createElement('p', "Compose your own melody (8 notes) by playing with your keyboard : A = C (do), Z = D (ré), E = E (mi), R = F (fa), T = G (sol), Y = A (la), U = B (si), I = C (do)");
-
-    // visualizer
-    let canvas1 = createElement('canvas');
-    canvas1.id('melody');
     displayPlayer('melody');
-
-    // buttons 
-    let playMelody = createButton("play");
-    playMelody.mousePressed(startMelody);
-    let stopMelody = createButton("stop");
-    stopMelody.mousePressed(endMelody);
-
-    /* === CALCULATE THE END === */
-    createElement('h2', "Let's calculate!");
-    let calculateAI = createButton("CALCULATE THE END OF THE MELODY");
-    calculateAI.mousePressed(calculate);
 }
 
 function windowResized() {
@@ -95,11 +90,11 @@ function keyTyped(){
 }
 
 // j'ai pas réussi à passer les mélodies en paramètre, vive le hardcoding
-function startMelody() {
+/*function startMelody() {
     player.start(TWINKLE_TWINKLE);
 }
 
-function endMelody() {
+function stopMelody() {
     player.stop(TWINKLE_TWINKLE);
 }
 
@@ -110,6 +105,7 @@ function startAll() {
 function endAll() {
     player.stop(TWINKLE_TWINKLE);
 }
+*/
 
 function displayPlayer(id:string){
     let config = {
@@ -127,27 +123,12 @@ function displayPlayer(id:string){
       });
 }
 
-function calculate() {
-    if (!isDisplayed)
-        displayEnd();
-}
 
 function displayEnd() {
 
     /* insert visualize here */
-    let canvas2 = createElement('canvas');
-    canvas2.id('all');
-    displayPlayer('all');
-
-    createElement('p', "Congrats! The end of you melody have been created, let's listen to it ! If you don't like it, you can calculate a different ending by clicking on the previous button.");
-    
-    let playAll = createButton("play");
-    playAll.mousePressed(startAll);
-
-    let stopAll = createButton("stop");
-    stopAll.mousePressed(endAll);
-    
-    
+    document.getElementById('melodyIA').style.display= 'block';
+    displayPlayer('canvasMelodyIA');   
     isDisplayed = true;
 }
 

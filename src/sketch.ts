@@ -3,6 +3,14 @@
 // -------------------
 
 // pour l'instant : sert d'exemple / de test 
+// Checkpoint : Adresse de tous les modèles de ML préentrainés de Magenta.js
+// CheckPoint+modele = URL contenant le modèle de ML que l'on désire  
+const checkPoint = 'https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/';
+const modele = 'melody_rnn' // Modèle qui permet de continuer une mélodie
+
+const modeleRNN = checkPoint.concat(modele); //On va chercher le modèle que l'on désire
+const melodyRNN = new mm.MusicRNN(modeleRNN); //On charge ce modèle
+
 let TWINKLE_TWINKLE = {
     notes: [
       {pitch: 60, startTime: 0.0, endTime: 0.5},
@@ -24,6 +32,41 @@ let TWINKLE_TWINKLE = {
 };
 
 let player = new mm.Player();
+
+// -------------------------------
+//   Construction de la mélodie
+// ------------------------------
+
+let rnn_steps = 12; //Nbre de steps que l'on veut ajouter à la musique originale
+let rnn_temp = 1.1; //A quel point on veut une séquence différente de l'originale (temp >1.5 ==> Suite de la séquence sera quasi random)
+
+const quantizedSequence = mm.sequences.quantizeNoteSequence(TWINKLE_TWINKLE, 1) // Wewe on quantize le truc jsp trop ce que ca veut dire
+
+const startProgramm = async() => {
+    try {
+        await melodyRNN.initialize()
+        let impro = await melodyRNN.continueSequence(quantizedSequence, rnn_steps, rnn_temp)
+        impro.totalTime = 1 //Corriger un petit bug
+        console.log(impro.totalTime)
+        const musique = await mm.sequences.concatenate([quantizedSequence, impro])
+
+        let playMelodyIA = document.getElementById('playIA').onclick = function() {
+            player.start(musique);}
+        
+        let stopMelodyIA =document.getElementById('stopIA').onclick = function() {
+            player.stop(musique);}
+
+        document.getElementById('melodyIA').style.display= 'block';
+        displayPlayer(musique, 'canvasMelodyIA');   
+        isDisplayed = true;
+    
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
+
 let isDisplayed = false; // pour l'affichage de la fin de la page après calcul par l'IA 
 
 let playMelody = document.getElementById('play').onclick = function() {
@@ -32,15 +75,9 @@ let playMelody = document.getElementById('play').onclick = function() {
 let stopMelody = document.getElementById('stop').onclick = function() {
     player.stop(TWINKLE_TWINKLE);}
 
-let createMelodyIA = document.getElementById('createMelodyIA').onclick = function() {
+let createMelodyIA = document.getElementById('calculateMelodyIA').onclick = function() {
     if (!isDisplayed)
-        displayEnd();}
-
-let playMelodyIA = document.getElementById('playIA').onclick = function() {
-    player.start(TWINKLE_TWINKLE);}
-
-let stopMelodyIA =document.getElementById('stopIA').onclick = function() {
-    player.stop(TWINKLE_TWINKLE);}
+        startProgramm();}
 
 let afficherMelodyIA = document.getElementById('melodyIA');
 afficherMelodyIA.style.display= "none";
@@ -48,8 +85,7 @@ afficherMelodyIA.style.display= "none";
 function setup() {
     p6_CreateCanvas();
     textAlign(LEFT);
-
-    displayPlayer('melody');
+    displayPlayer(TWINKLE_TWINKLE, 'melody'); // Display canvas whose id is melody
 }
 
 function windowResized() {
@@ -107,7 +143,7 @@ function endAll() {
 }
 */
 
-function displayPlayer(id:string){
+function displayPlayer(musique, id:string){
     let config = {
         noteHeight: 6,
         pixelsPerTimeStep: 30,  // like a note width
@@ -116,7 +152,7 @@ function displayPlayer(id:string){
         activeNoteRGB: '240, 84, 119',
       };
 
-    let viz = new mm.PianoRollCanvasVisualizer(TWINKLE_TWINKLE, document.getElementById(id), config);   
+    let viz = new mm.PianoRollCanvasVisualizer(musique, document.getElementById(id), config);   
     new mm.Player(false, {
         run: (note) => viz.redraw(note),
         stop: () => {console.log('done');}
@@ -125,11 +161,7 @@ function displayPlayer(id:string){
 
 
 function displayEnd() {
-
-    /* insert visualize here */
-    document.getElementById('melodyIA').style.display= 'block';
-    displayPlayer('canvasMelodyIA');   
-    isDisplayed = true;
+    
 }
 
 // -------------------

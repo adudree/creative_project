@@ -1,15 +1,77 @@
-html {
-background-color: rgb(235, 235, 235);
+html, body {
+background-color: rgb(255, 247, 250);
 font-family: Verdana, Geneva, Tahoma, sans-serif;
 color: #555;
+margin:0;
+padding:0;
+overflow-y: auto;
 }
 
 .p5Canvas {
 z-index: -1;
 }
 
-h1, h2 {
-  color:red;
+.header ul {
+  display: flex;
+  justify-content: center;
+  padding-inline-start: 0;
+}
+
+ul a {
+  text-decoration: none;
+  display: flex;
+  height:40px;
+  justify-content: center;
+  align-items: center;
+  color:#fff;
+  transition: all .3s ease-in-out;
+  width:200px;
+}
+
+.selected {
+  font-weight: bold;
+}
+
+.header li {
+  list-style: none;
+  font-size: 18px;
+  display: table-cell;
+  vertical-align: center;
+  line-height: normal;
+}
+
+ul a:hover {
+  background: white;
+  color:#ae0033;
+  transition: all .3s ease-in-out;
+}
+
+.header {
+  background: #ae0033;
+  margin:0;
+  min-height:30px;
+  color:#fff;
+  padding:10px 10px 0;
+  text-align: center;
+}
+
+main {
+  width:80%;
+  margin:10px auto;
+
+}
+
+footer {
+  padding: 0 20px;
+  position: absolute;
+  bottom: 0;;
+}
+h1 {
+  text-align: center;
+  color:#fff;
+}
+h2 {
+  color:#ae0033;
 }
 
 button {
@@ -32,7 +94,7 @@ button:hover{
 .piano {
   height:250px;
   max-width:800px;
-  margin:20px;
+  margin:auto;
   display: flex;
 }
 
@@ -41,13 +103,23 @@ button:hover{
   position:relative;
 }
 
+.piano .key div {
+  border: 1px solid #000;
+  text-align: center;
+} 
+
 .piano .key .white {
   position: relative;
   background:#fff;
-  border: 1px solid #000;
   z-index:1;
   position: relative;
   height:100%;
+}
+
+.key div p {
+  position:absolute;
+  bottom:5px;
+  width:100%;
 }
 
 .piano .key .black {
@@ -59,4 +131,5 @@ button:hover{
   z-index:5;
   top:0;
   background:#000;
+  color:#fff;
 }

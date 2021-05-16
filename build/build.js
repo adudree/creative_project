@@ -82,6 +82,21 @@ var keyboardColor = {
     "j": "#156b76",
     "k": "#1e5598"
 };
+var RGBColor = {
+    "q": "215,50,62",
+    "z": "221,112,74",
+    "s": "224,169,82",
+    "e": "244,212,92",
+    "d": "255,232,104",
+    "f": "229,226,82",
+    "t": "193,229,98",
+    "g": "154,213,112",
+    "y": "95,199,113",
+    "h": "88, 156, 93",
+    "u": "68, 116, 108",
+    "j": "21, 107, 118",
+    "k": "30, 85, 152"
+};
 var rnn_steps = params.steps_RNN;
 var rnn_temp = params.temperature_RNN;
 var dureeNote = params.dureeNote;
@@ -135,11 +150,11 @@ var playMelody = document.getElementById('play').onclick = function () {
     if (finComp == true) {
         playerPiano.loadSamples(ownComp).then(function () { playerPiano.start(ownComp); });
     }
-    var stopMelody = document.getElementById('stop').onclick = function () {
-        if (finComp == true) {
-            playerPiano.stop(ownComp);
-        }
-    };
+};
+var stopMelody = document.getElementById('stop').onclick = function () {
+    if (finComp == true) {
+        playerPiano.stop(ownComp);
+    }
 };
 var createMelodyIA = document.getElementById('calculateMelodyIA').onclick = function () {
     if (isDisplayed)
@@ -218,6 +233,9 @@ function keyPressed() {
             ownComp["notes"].push(note);
             ownComp["totalTime"] += dureeNote;
         }
+    }
+    if (key === 'h') {
+        dat.GUI.toggleHide();
     }
     return false;
 }

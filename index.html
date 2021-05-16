@@ -6,72 +6,94 @@
   </head>
 
   <body>
-    <h1> Melod'IMAC</h1>
-    <p> You would like to compose your own melody and you have started it, but you don't know how to continue it? Melod'IMAC is here for you!</p>
-    
-    <h2> Let's compose!</h2>
-    <p> Compose your own melody (8 notes) by playing with your keyboard : A = C (do), Z = D (rÃ©), E = E (mi), R = F (fa), T = G (sol), Y = A (la), U = B (si), I = C (do)</p>
-    
-    <button id="startComp" type="button">Start composing</button>
-    <button id="stopComp" type="button">End composing</button>
+      <header class= "header">
+        <h1> Melod'IMAC</h1>
+        <nav>
+          <ul>
+            <a href="#"><li class="selected">Home</li></a>
+            <a href="about.html"><li>About</li></a>
+          </ul>
+        </nav>
+      </header>      
+      
+      <main>     
+        <h2> How to use Melod'IMAC?</h2>
+        <ol> 
+          <li>Compose your own melody</li>
+          <li>Listen to it</li>
+          <li>Let the magic AI compose the end of the music</li>
+          <li>Enjoy!</li>
+        </ol>
 
-    <div class="piano">
-      <div class="key">
-        <div class="white" id="q"></div>
-        <div class="black" id="z"></div>
-      </div>
-      <div class="key">
-        <div class="white" id="s"></div>
-        <div class="black" id="e"></div>
-      </div>
-      <div class="key">
-        <div class="white" id="d"></div>
-      </div>
-      <div class="key">
-        <div class="white" id="f"></div>
-        <div class="black" id="t"></div>
-      </div>
-      <div class="key">
-        <div class="white" id="g"></div>
-        <div class="black" id="y"></div>
-      </div>
-      <div class="key">
-        <div class="white" id="h"></div>
-        <div class="black" id="u"></div>
-      </div>
-      <div class="key">
-        <div class="white" id="j"></div>
-      </div>
-      <div class="key">
-        <div class="white" id="k"></div>
-      </div>
-    </div>
-
-    <div id="vizComposition">
-      <p> Vous pouvez visualiser la musique actuelle ci dessus</p>
-      <canvas id='melody'>
-        Loading melody visualizer 
-      </canvas>
-
-      <button id="play" type="button">Play</button>
-      <button id="stop" type="button">Stop</button>
-      <button id="newMelody" type="button">New melody</button>
-
-      <h2> Let's calculate</h2>
-      <button id="calculateMelodyIA" type="button">Calculate new melody</button>
-
-      <div id=melodyIA>
-        <canvas id='canvasMelodyIA'>
-          Loading melody visualizer 
-        </canvas>
-
-        <p> Congrats! The end of you melody have been created, let's listen to it ! If you don't like it, you can calculate a different ending by clicking on the previous button.</p>
-        <button id="playIA" type="button">Play</button>
-        <button id="stopIA" type="button">Stop</button>
-        <button id="newMelody2" type="button">New melody</button>
-      </div>
-    </div>
-
+        <h2> Let's compose!</h2>
+        <ol> 
+          <li>Click on "Start composing"</li>
+          <li>Compose your own melody (8 notes) by playing with your keyboard. You can use the GUI parameters to chose the length of the notes that you want to write, the numbers of notes that you want the AI to find, and the random degree for the AI. </li>
+          <li>Click on "End composing" if you have finished.</li>
+        </ol>
+        
+        <button id="startComp" type="button">Start composing</button>
+        <button id="stopComp" type="button">End composing</button>
+  
+        <div class="piano">
+          <div class="key">
+            <div class="white" id="q"><p>Do (Q)</p></div>
+            <div class="black" id="z"><p>Do# (Z)</p></div>
+          </div>
+          <div class="key">
+            <div class="white" id="s"><p>Ré (S)</p></div>
+            <div class="black" id="e"><p>Ré# (E)</p></div>
+          </div>
+          <div class="key">
+            <div class="white" id="d"><p>Mi (D)</p></div>
+          </div>
+          <div class="key">
+            <div class="white" id="f"><p>Fa (F)</p></div>
+            <div class="black" id="t"><p>Fa# (T)</p></div>
+          </div>
+          <div class="key">
+            <div class="white" id="g"><p>Sol (G)</p></div>
+            <div class="black" id="y"><p>Sol# (Y)</p></div>
+          </div>
+          <div class="key">
+            <div class="white" id="h"><p>La (H)</p></div>
+            <div class="black" id="u"><p>La# (U)</p></div>
+          </div>
+          <div class="key">
+            <div class="white" id="j"><p>Si (J)</p></div>
+          </div>
+          <div class="key">
+            <div class="white" id="k"><p>Do (K)</p></div>
+          </div>
+        </div>
+  
+        <div id="vizComposition">
+          <p>Fine! Here is your own melody. You can try again if you don't like it.</p>
+          <canvas id='melody'>
+            Loading melody visualizer 
+          </canvas>
+  
+          <button id="play" type="button">Play</button>
+          <button id="stop" type="button">Stop</button>
+          <button id="newMelody" type="button">New melody</button>
+  
+          <h2> Let's calculate!</h2>
+          <p>Ask Melod'IMAC to compose the follow up of your melody. </p>
+          <button id="calculateMelodyIA" type="button">Calculate new melody</button>
+  
+          <div id=melodyIA>
+            <canvas id='canvasMelodyIA'>
+              Loading melody visualizer 
+            </canvas>
+  
+            <p> Congrats! The end of you melody have been created, let's listen to it ! If you don't like it, you can calculate a different ending by clicking on the previous button.</p>
+            <button id="playIA" type="button">Play</button>
+            <button id="stopIA" type="button">Stop</button>
+            <button id="newMelody2" type="button">New melody</button>
+          </div>
+        </div>
+      </main>
+  </div>
   </body>
 
   <script src="https://cdn.jsdelivr.net/npm/@magenta/music@^1.0.0"></script> 

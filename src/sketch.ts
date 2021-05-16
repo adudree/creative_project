@@ -59,6 +59,22 @@ let keyboardColor = {
     "k" : "#1e5598"
 }
 
+let RGBColor = {
+    "q" : "215,50,62",
+    "z" : "221,112,74",
+    "s" : "224,169,82",
+    "e" : "244,212,92",
+    "d" : "255,232,104",
+    "f" : "229,226,82",
+    "t" : "193,229,98",
+    "g" : "154,213,112",
+    "y" : "95,199,113",
+    "h" : "88, 156, 93",
+    "u" : "68, 116, 108",
+    "j" : "21, 107, 118",
+    "k" : "30, 85, 152"
+}
+
 // GUI PARAM //
 let rnn_steps = params.steps_RNN; //Nbre de steps que l'on veut ajouter à la musique originale 
 let rnn_temp = params.temperature_RNN; //A quel point on veut une séquence différente de l'originale (temp >1.5 ==> Suite de la séquence sera quasi random)
@@ -123,13 +139,14 @@ let playMelody = document.getElementById('play').onclick = function() {
         { playerPiano.start(ownComp)}
         )
     }
+}
 
 let stopMelody = document.getElementById('stop').onclick = function() {
     if (finComp==true)
     {
     playerPiano.stop(ownComp);}
     }
-}
+
 
 let createMelodyIA = document.getElementById('calculateMelodyIA').onclick = function() {
     if (isDisplayed)
@@ -179,7 +196,7 @@ function displayPlayer(musique, id:string){
         noteSpacing: 1,
         noteRGB: '8, 41, 64',
         activeNoteRGB: '240, 84, 119',
-      };
+      }
 
     let viz = new mm.PianoRollCanvasVisualizer(musique, document.getElementById(id), config);   
 }
@@ -228,6 +245,11 @@ function keyPressed(){ //Renvoie la valeur en pitch
             ownComp["notes"].push(note);
             ownComp["totalTime"]+=dureeNote;
             }
+        }
+
+        // correction pour que le menu ne disparaisse plus en appuyant sur H 
+        if (key === 'h') {
+            dat.GUI.toggleHide();
         }
         return false;
 }

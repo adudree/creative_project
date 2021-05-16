@@ -6,12 +6,14 @@ const gui = new dat.GUI()
 const params = {
     dureeNote : 0.5,
     steps_RNN : 12,
-    temperature_RNN : 1.1
+    temperature_RNN : 1.1,
+    tempo : 95.0
 }
 
 gui.add(params, "dureeNote", 0.5, 4, 0.5)
 gui.add(params, "steps_RNN", 4, 24, 4)
 gui.add(params, "temperature_RNN", 0.1, 1.5, 0.1)
+gui.add(params, "tempo", 40, 180, 1);
 
 // pour l'instant : sert d'exemple / de test 
 // Checkpoint : Adresse de tous les modèles de ML préentrainés de Magenta.js
@@ -89,6 +91,7 @@ let keyboardColor = {
 let rnn_steps = params.steps_RNN; //Nbre de steps que l'on veut ajouter à la musique originale 
 let rnn_temp = params.temperature_RNN; //A quel point on veut une séquence différente de l'originale (temp >1.5 ==> Suite de la séquence sera quasi random)
 let dureeNote = params.dureeNote;
+let tempo = params.tempo
 
 // -------------
 // INSTRUMENTS 
@@ -104,6 +107,7 @@ function draw() {
     rnn_steps = params.steps_RNN;
     rnn_temp = params.temperature_RNN;
     dureeNote = params.dureeNote;
+    tempo = params.tempo;
 }
 
 // -------------------------------
@@ -121,9 +125,11 @@ const suiteMelodie = async() => {
         displayPlayer(musique, 'canvasMelodyIA');
 
         let playMelodieIa = document.getElementById('playIA').onclick = function() {
-            playerPiano.loadSamples(musique).then(()=> 
-            { playerPiano.start(musique)}
-                )}
+            playerPiano.loadSamples(musique).then(()=> { 
+                playerPiano.setTempo(tempo);
+                playerPiano.start(musique);                
+            })
+        }
         
         let stopMelodyIA =document.getElementById('stopIA').onclick = function() {
             playerPiano.stop(musique);}
@@ -145,8 +151,9 @@ let finComp = false;
 let playMelody = document.getElementById('play').onclick = function() {
     if (finComp==true)
     {
-        playerPiano.loadSamples(ownComp).then(()=> 
-        { playerPiano.start(ownComp)}
+        playerPiano.loadSamples(ownComp).then(()=> { 
+            playerPiano.setTempo(tempo);
+            playerPiano.start(ownComp);}
         )
     }
 }
@@ -214,7 +221,6 @@ function displayPlayer(musique, id:string){
 }
 
 let noteMusique;
-let t1, t2;
 
 let playerNote = new mm.SoundFontPlayer(piano);
 
@@ -227,8 +233,6 @@ function removeColor(key) {
 
 function keyPressed(){ //Renvoie la valeur en pitch
     if (compEncours){
-        
-        t1 = millis();
         if (key in keyboardValue){
             colorNote(key);
 
@@ -269,8 +273,6 @@ function keyPressed(){ //Renvoie la valeur en pitch
 
 function keyReleased(){
     if (compEncours && key in keyboardValue){
-        t2=millis()
-        console.log("t2 :", t2);
         removeColor(key);
     }
     return false;

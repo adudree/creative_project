@@ -65,7 +65,20 @@ var keyboardValue = {
     "h": 69,
     "u": 70,
     "j": 71,
-    "k": 72
+    "k": 72,
+    "Q": 60,
+    "Z": 61,
+    "S": 62,
+    "E": 63,
+    "D": 64,
+    "F": 65,
+    "T": 66,
+    "G": 67,
+    "Y": 68,
+    "H": 69,
+    "U": 70,
+    "J": 71,
+    "K": 72
 };
 var keyboardColor = {
     "q": "#d7323e",
@@ -80,22 +93,20 @@ var keyboardColor = {
     "h": "#589c5d",
     "u": "#44746c",
     "j": "#156b76",
-    "k": "#1e5598"
-};
-var RGBColor = {
-    "q": "215,50,62",
-    "z": "221,112,74",
-    "s": "224,169,82",
-    "e": "244,212,92",
-    "d": "255,232,104",
-    "f": "229,226,82",
-    "t": "193,229,98",
-    "g": "154,213,112",
-    "y": "95,199,113",
-    "h": "88, 156, 93",
-    "u": "68, 116, 108",
-    "j": "21, 107, 118",
-    "k": "30, 85, 152"
+    "k": "#1e5598",
+    "Q": "#d7323e",
+    "Z": "#dd704a",
+    "S": "#e0a952",
+    "E": "#f4d45c",
+    "D": "#ffe868",
+    "F": "#e5e252",
+    "T": "#c1e562",
+    "G": "#9ad570",
+    "Y": "#5fc771",
+    "H": "#589c5d",
+    "U": "#44746c",
+    "J": "#156b76",
+    "K": "#1e5598"
 };
 var rnn_steps = params.steps_RNN;
 var rnn_temp = params.temperature_RNN;
@@ -181,6 +192,7 @@ document.getElementById("startComp").onclick = function () {
 document.getElementById("stopComp").onclick = function () {
     compEncours = false;
     finComp = true;
+    document.getElementById('startComp').style.removeProperty('background');
     displayPlayer(ownComp, 'melody');
     console.log(ownComp);
     afficherVizComp.style.display = "block";

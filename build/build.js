@@ -39,11 +39,13 @@ var gui = new dat.GUI();
 var params = {
     dureeNote: 0.5,
     steps_RNN: 12,
-    temperature_RNN: 1.1
+    temperature_RNN: 1.1,
+    tempo: 95.0
 };
 gui.add(params, "dureeNote", 0.5, 4, 0.5);
 gui.add(params, "steps_RNN", 4, 24, 4);
 gui.add(params, "temperature_RNN", 0.1, 1.5, 0.1);
+gui.add(params, "tempo", 40, 180, 1);
 var checkPoint = 'https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/';
 var modele = 'melody_rnn';
 var modeleRNN = checkPoint.concat(modele);
@@ -111,12 +113,14 @@ var keyboardColor = {
 var rnn_steps = params.steps_RNN;
 var rnn_temp = params.temperature_RNN;
 var dureeNote = params.dureeNote;
+var tempo = params.tempo;
 var piano = "https://storage.googleapis.com/magentadata/js/soundfonts/salamander";
 var playerPiano = new mm.SoundFontPlayer(piano);
 function draw() {
     rnn_steps = params.steps_RNN;
     rnn_temp = params.temperature_RNN;
     dureeNote = params.dureeNote;
+    tempo = params.tempo;
 }
 var suiteMelodie = function () { return __awaiter(_this, void 0, void 0, function () {
     var quantizedSequence, impro, musique_1, playMelodieIa, stopMelodyIA, error_1;
@@ -137,7 +141,10 @@ var suiteMelodie = function () { return __awaiter(_this, void 0, void 0, functio
                 musique_1 = _a.sent();
                 displayPlayer(musique_1, 'canvasMelodyIA');
                 playMelodieIa = document.getElementById('playIA').onclick = function () {
-                    playerPiano.loadSamples(musique_1).then(function () { playerPiano.start(musique_1); });
+                    playerPiano.loadSamples(musique_1).then(function () {
+                        playerPiano.setTempo(tempo);
+                        playerPiano.start(musique_1);
+                    });
                 };
                 stopMelodyIA = document.getElementById('stopIA').onclick = function () {
                     playerPiano.stop(musique_1);
@@ -159,7 +166,10 @@ var compEncours = false;
 var finComp = false;
 var playMelody = document.getElementById('play').onclick = function () {
     if (finComp == true) {
-        playerPiano.loadSamples(ownComp).then(function () { playerPiano.start(ownComp); });
+        playerPiano.loadSamples(ownComp).then(function () {
+            playerPiano.setTempo(tempo);
+            playerPiano.start(ownComp);
+        });
     }
 };
 var stopMelody = document.getElementById('stop').onclick = function () {
@@ -208,7 +218,6 @@ function displayPlayer(musique, id) {
     var viz = new mm.PianoRollCanvasVisualizer(musique, document.getElementById(id), config);
 }
 var noteMusique;
-var t1, t2;
 var playerNote = new mm.SoundFontPlayer(piano);
 function colorNote(key) {
     document.getElementById(key).style.background = keyboardColor[key];
@@ -218,7 +227,6 @@ function removeColor(key) {
 }
 function keyPressed() {
     if (compEncours) {
-        t1 = millis();
         if (key in keyboardValue) {
             colorNote(key);
             noteMusique = keyboardValue[key];
@@ -253,8 +261,6 @@ function keyPressed() {
 }
 function keyReleased() {
     if (compEncours && key in keyboardValue) {
-        t2 = millis();
-        console.log("t2 :", t2);
         removeColor(key);
     }
     return false;

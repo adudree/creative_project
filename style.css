@@ -28,3 +28,35 @@ button:hover{
   background:aqua;
   color:#000;
 }
+
+.piano {
+  height:250px;
+  max-width:800px;
+  margin:20px;
+  display: flex;
+}
+
+.piano .key {
+  width:12.5%;
+  position:relative;
+}
+
+.piano .key .white {
+  position: relative;
+  background:#fff;
+  border: 1px solid #000;
+  z-index:1;
+  position: relative;
+  height:100%;
+}
+
+.piano .key .black {
+  height:140px;
+  width:50%;
+  left:100%;
+  position:absolute;
+  transform: translateX(-50%);
+  z-index:5;
+  top:0;
+  background:#000;
+}

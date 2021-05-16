@@ -1,5 +1,7 @@
 <html>
   <head>
+    <title>Melod'IMAC</title>
+    <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
 
@@ -8,33 +10,73 @@
     <p> You would like to compose your own melody and you have started it, but you don't know how to continue it? Melod'IMAC is here for you!</p>
     
     <h2> Let's compose!</h2>
-    <p> Compose your own melody (8 notes) by playing with your keyboard : A = C (do), Z = D (ré), E = E (mi), R = F (fa), T = G (sol), Y = A (la), U = B (si), I = C (do)</p>
-  
-    <canvas id='melody'>
-      Loading melody visualizer 
-    </canvas>
+    <p> Compose your own melody (8 notes) by playing with your keyboard : A = C (do), Z = D (rÃ©), E = E (mi), R = F (fa), T = G (sol), Y = A (la), U = B (si), I = C (do)</p>
+    
+    <button id="startComp" type="button">Start composing</button>
+    <button id="stopComp" type="button">End composing</button>
 
-    <button id="play" type="button">Play</button>
-    <button id="stop" type="button">Stop</button>
+    <div class="piano">
+      <div class="key">
+        <div class="white" id="q"></div>
+        <div class="black" id="z"></div>
+      </div>
+      <div class="key">
+        <div class="white" id="s"></div>
+        <div class="black" id="e"></div>
+      </div>
+      <div class="key">
+        <div class="white" id="d"></div>
+      </div>
+      <div class="key">
+        <div class="white" id="f"></div>
+        <div class="black" id="t"></div>
+      </div>
+      <div class="key">
+        <div class="white" id="g"></div>
+        <div class="black" id="y"></div>
+      </div>
+      <div class="key">
+        <div class="white" id="h"></div>
+        <div class="black" id="u"></div>
+      </div>
+      <div class="key">
+        <div class="white" id="j"></div>
+      </div>
+      <div class="key">
+        <div class="white" id="k"></div>
+      </div>
+    </div>
 
-    <h2> Let's calculate</h2>
-    <button id="createMelodyIA" type="button">Calculate new melody</button>
-
-    <div id=melodyIA>
-      <canvas id='canvasMelodyIA'>
+    <div id="vizComposition">
+      <p> Vous pouvez visualiser la musique actuelle ci dessus</p>
+      <canvas id='melody'>
         Loading melody visualizer 
       </canvas>
 
-      <p> Congrats! The end of you melody have been created, let's listen to it ! If you don't like it, you can calculate a different ending by clicking on the previous button.</p>
-      <button id="playIA" type="button">Play</button>
-      <button id="stopIA" type="button">Stop</button>
+      <button id="play" type="button">Play</button>
+      <button id="stop" type="button">Stop</button>
+      <button id="newMelody" type="button">New melody</button>
 
+      <h2> Let's calculate</h2>
+      <button id="calculateMelodyIA" type="button">Calculate new melody</button>
+
+      <div id=melodyIA>
+        <canvas id='canvasMelodyIA'>
+          Loading melody visualizer 
+        </canvas>
+
+        <p> Congrats! The end of you melody have been created, let's listen to it ! If you don't like it, you can calculate a different ending by clicking on the previous button.</p>
+        <button id="playIA" type="button">Play</button>
+        <button id="stopIA" type="button">Stop</button>
+        <button id="newMelody2" type="button">New melody</button>
+      </div>
     </div>
 
   </body>
 
-  <script src="https://cdn.jsdelivr.net/npm/@magenta/music@^1.0.0"></script>
-  <script src = "./lib/dat.gui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@magenta/music@^1.0.0"></script> 
   <script src = "./lib/p5.min.js"></script>
-  <script src = "./build/build.js"></script>
+  <script src = "./lib/dat.gui.min.js"></script>
+  <script src="./build/build.js"></script> 
+
 </html>

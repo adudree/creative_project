@@ -4,7 +4,7 @@ font-family: Verdana, Geneva, Tahoma, sans-serif;
 color: #555;
 margin:0;
 padding:0;
-overflow-y: auto;
+overflow-x: hidden;
 }
 
 .p5Canvas {
@@ -32,6 +32,7 @@ ul a {
   font-weight: bold;
 }
 
+
 .header li {
   list-style: none;
   font-size: 18px;
@@ -57,7 +58,7 @@ ul a:hover {
 
 main {
   width:80%;
-  margin:10px auto;
+  margin:30px auto;
 
 }
 
